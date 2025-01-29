@@ -51,11 +51,4 @@ locals {
       }
     ]
   ])
-
-  # Parse repo team membership files
-  repo_teams_path = "../data/teams"
-  repo_teams_files = {
-    for file in fileset(local.repo_teams_path, "*.csv") :
-    trimsuffix(file, ".csv") => csvdecode(file("${local.repo_teams_path}/${file}"))
-  }
 }
