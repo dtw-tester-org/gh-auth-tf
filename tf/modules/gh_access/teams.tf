@@ -1,16 +1,18 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 resource "github_team" "all" {
   for_each = {
-    for team in csvdecode(file("../data/teams.csv")) :
+    for team in csvdecode(file("${var.data_dir}/teams.csv")) :
     team.name => team
   }
 
   name                      = each.value.name
   description               = each.value.description
   privacy                   = each.value.privacy
-  create_default_maintainer = true
+  create_default_maintainer = false
+  parent_team_id            = each.value.parent_team_slug
+
+  lifecycle {
+    # prevent_destroy = true
+  }
 }
 
 resource "github_team_membership" "members" {
@@ -23,7 +25,7 @@ resource "github_team_membership" "members" {
 
 locals {
 
-  team_members_path = "../data/membership/"
+  team_members_path = "${var.data_dir}/membership/"
   team_members_files = {
     for file in fileset(local.team_members_path, "*.csv") :
     trimsuffix(file, ".csv") => csvdecode(file("${local.team_members_path}/${file}"))

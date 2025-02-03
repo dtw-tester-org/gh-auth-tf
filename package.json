@@ -1,0 +1,13 @@
+{
+  "name": "gh-auth-tf",
+  "version": "1.0.0",
+  "scripts": {
+    "org:apply": "terraform -chdir='orgs/dtw-tester-org' apply",
+    "org:pre-init": "terraform -chdir='orgs/dtw-tester-org' apply -target module.github_access.github_team.all -auto-approve",
+    "org:init": "npm run org:pre-init && npm run org:apply"
+
+  },
+  "keywords": [ ],
+  "author": "",
+  "license": "ISC"
+}

@@ -15,7 +15,7 @@ On your first run:
 ```shell
 pushd tf
 # have to do this one first, so it knows about all the pieces
-terraform apply -target github_team.all
+terraform apply -target module.github_access.github_team.all
 # then you can do everything
 terraform apply
 popd

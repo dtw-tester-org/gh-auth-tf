@@ -1,0 +1,3 @@
+name,description,privacy,parent_team_slug,notes
+Alpha,Alpha Bros,closed,,This is a root team
+Bravo,Beta Chads,closed,alpha,This is a child team. Note that slug needs to be the GH generated slug (typically lowercase / no spaces / etc)
